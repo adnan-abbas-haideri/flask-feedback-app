@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Feedback App</title>
+
+    <link rel="stylesheet" href="/static/style.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Student Feedback</h1>
+
+    <form action="/submit" method="POST">
+
+        <input
+            type="text"
+            name="name"
+            placeholder="Your Name"
+            required
+        >
+
+        <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            required
+        >
+
+        <textarea
+            name="feedback"
+            placeholder="Write Feedback..."
+            required
+        ></textarea>
+
+        <button type="submit">
+            Submit
+        </button>
+
+    </form>
+
+    {% if success %}
+
+        <div class="success">
+
+            {{ success }}
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+</body>
+
+</html>

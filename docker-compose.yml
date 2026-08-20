@@ -1,0 +1,54 @@
+services:
+
+  # MySQL database container
+  mysql-db:
+    image: mysql:latest
+    container_name: db
+
+    # MySQL configuration
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: devops
+
+    # Database data persistence
+    volumes:
+      - data:/var/lib/mysql
+
+    # Connect MySQL to custom network
+    networks:
+      - twotier
+
+
+  # Flask application container
+  flask-app:
+    build:
+      # Dockerfile current directory se use hoga
+      context: .
+
+    container_name: flask-app
+
+    # Host port : Container port
+    ports:
+      - "5000:5000"
+
+    # Start MySQL before Flask
+    depends_on:
+      - mysql-db
+
+    # Same network for communication
+    networks:
+      - twotier
+
+    # Restart container automatically
+    restart: always
+
+
+# Existing Docker volume use karega
+volumes:
+  data:
+    external: true
+
+
+# Docker network
+networks:
+  twotier:
