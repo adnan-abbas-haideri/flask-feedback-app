@@ -1,0 +1,17 @@
+# hostPath is intended for a single-node local cluster such as Minikube or Kind.
+# Use a cloud/dynamic storage class in a production cluster.
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mysql-pv
+spec:
+  capacity:
+    storage: 1Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: manual
+  hostPath:
+    path: /mnt/flask-feedback-mysql
+    type: DirectoryOrCreate
