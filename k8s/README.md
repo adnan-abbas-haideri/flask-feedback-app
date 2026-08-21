@@ -4,21 +4,16 @@ These manifests run the Flask feedback app and MySQL in the `flask-feedback`
 namespace. They demonstrate a Namespace, Deployments, Services, ConfigMap,
 Secret, PersistentVolume (PV), and PersistentVolumeClaim (PVC).
 
-## 1. Build the Flask image
+## 1. Flask image
 
-For Minikube, point Docker at Minikube's Docker daemon before building:
+The deployment pulls the Flask image from Docker Hub:
 
-```bash
-eval $(minikube docker-env)
-docker build -t flask-feedback-app:latest .
+```text
+adnan313/flask-feedback-app:latest
 ```
 
-For Kind, load a locally built image instead:
-
-```bash
-docker build -t flask-feedback-app:latest .
-kind load docker-image flask-feedback-app:latest
-```
+If you push a versioned image in the future (for example, `v1`), update the
+tag in `k8s/flask.yaml` before applying the manifests.
 
 ## 2. Apply the resources
 
@@ -52,7 +47,6 @@ kubectl port-forward -n flask-feedback service/flask-app 5000:5000
 
 Then visit `http://localhost:5000`.
 
-The Flask image name is `flask-feedback-app:latest`; change it in `flask.yaml`
-if you push it to a registry. `pv.yaml` deliberately uses `hostPath` and is only
-for learning on a single-node cluster. The sample Secret has development-only
-passwords—do not commit real credentials.
+The Flask image is configured in `flask.yaml`. `pv.yaml` deliberately uses
+`hostPath` and is only for learning on a single-node cluster. The sample Secret
+has development-only passwords—do not commit real credentials.

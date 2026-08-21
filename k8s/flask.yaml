@@ -1,4 +1,3 @@
-# Build and make this image available to your cluster, then replace this value.
 apiVersion: v1
 kind: Service
 metadata:
@@ -31,7 +30,7 @@ spec:
     spec:
       containers:
         - name: flask-app
-          image: flask-feedback-app:latest
+          image: adnan313/flask-feedback-app:latest
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 5000

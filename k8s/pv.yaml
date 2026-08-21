@@ -1,5 +1,3 @@
-# hostPath is intended for a single-node local cluster such as Minikube or Kind.
-# Use a cloud/dynamic storage class in a production cluster.
 apiVersion: v1
 kind: PersistentVolume
 metadata:
